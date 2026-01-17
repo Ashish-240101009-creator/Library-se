@@ -1,11 +1,12 @@
 import unittest
 from src.library import Library
 
-class TestSprint1(unittest.TestCase):
+class TestLibrary(unittest.TestCase):
 
     def setUp(self):
         self.lib = Library()
 
+    # -------- Sprint 1 Tests --------
     def test_add_book_success(self):
         self.lib.add_book(1, "Python", "Guido")
         self.assertIn(1, self.lib.books)
@@ -14,6 +15,24 @@ class TestSprint1(unittest.TestCase):
         self.lib.add_book(1, "Python", "Guido")
         with self.assertRaises(ValueError):
             self.lib.add_book(1, "Java", "James")
+
+    # -------- Sprint 2 Tests --------
+    def test_borrow_available_book(self):
+        self.lib.add_book(1, "Python", "Guido")
+        self.lib.borrow_book(1)
+        self.assertEqual(self.lib.books[1]["status"], "Borrowed")
+
+    def test_borrow_unavailable_book(self):
+        self.lib.add_book(1, "Python", "Guido")
+        self.lib.borrow_book(1)
+        with self.assertRaises(ValueError):
+            self.lib.borrow_book(1)
+
+    def test_return_book(self):
+        self.lib.add_book(1, "Python", "Guido")
+        self.lib.borrow_book(1)
+        self.lib.return_book(1)
+        self.assertEqual(self.lib.books[1]["status"], "Available")
 
 if __name__ == "__main__":
     unittest.main()
