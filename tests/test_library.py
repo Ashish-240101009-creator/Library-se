@@ -33,6 +33,15 @@ class TestLibrary(unittest.TestCase):
         self.lib.borrow_book(1)
         self.lib.return_book(1)
         self.assertEqual(self.lib.books[1]["status"], "Available")
+    # -------- Sprint 3 Tests --------
+    def test_report_contains_header(self):
+        report = self.lib.generate_report()
+        self.assertIn("ID | Title | Author | Status", report)
+
+    def test_report_contains_book_entry(self):
+        self.lib.add_book(1, "Python", "Guido")
+        report = self.lib.generate_report()
+        self.assertIn("Python", report)
 
 if __name__ == "__main__":
     unittest.main()

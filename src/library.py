@@ -17,3 +17,10 @@ class Library:
         self.books[book_id]["status"] = "Borrowed"
     def return_book(self, book_id):
         self.books[book_id]["status"] = "Available"
+    def generate_report(self):
+        report = ["ID | Title | Author | Status"]
+        for book_id, info in self.books.items():
+            report.append(
+                f"{book_id} | {info['title']} | {info['author']} | {info['status']}"
+            )
+        return "\n".join(report)
